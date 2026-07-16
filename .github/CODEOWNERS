@@ -1,0 +1,12 @@
+# Default owners for everything in the repository
+* @dornberg
+
+# Allocator core
+/include/ @dornberg
+/src/ @dornberg
+
+# Build and CI
+/cmake/ @dornberg
+/.github/ @dornberg
+CMakeLists.txt @dornberg
+CMakePresets.json @dornberg

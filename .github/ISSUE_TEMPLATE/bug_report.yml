@@ -1,0 +1,59 @@
+name: Bug Report
+description: Report a defect in m-alloc
+title: "[Bug]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for reporting a bug. Please fill in as much detail as possible.
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What happened, and what did you expect to happen?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: Smallest code sample that triggers the issue.
+      render: cpp
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: m-alloc version
+      placeholder: v0.1.0 or commit hash
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options:
+        - Linux
+        - Windows
+        - macOS
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: compiler
+    attributes:
+      label: Compiler and version
+      placeholder: GCC 14.1, Clang 18, MSVC 19.40
+    validations:
+      required: true
+  - type: textarea
+    id: config
+    attributes:
+      label: Allocator configuration
+      description: AllocatorConfig flags in use (debug features, thread cache).
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant output
+      description: Error handler output, sanitizer reports, stack traces.
+      render: shell
