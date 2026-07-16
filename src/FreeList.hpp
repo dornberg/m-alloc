@@ -44,6 +44,7 @@ public:
     }
 
     [[nodiscard]] bool empty() const noexcept { return head_ == nullptr; }
+
     [[nodiscard]] std::size_t size() const noexcept { return size_; }
 
 private:

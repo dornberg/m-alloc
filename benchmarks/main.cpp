@@ -1,7 +1,7 @@
+#include "MAlloc/MAlloc.hpp"
+
 #include "Adapters.hpp"
 #include "Runner.hpp"
-
-#include "MAlloc/MAlloc.hpp"
 
 #include <cstdlib>
 #include <print>
@@ -22,14 +22,22 @@ int main(int argc, char** argv) {
     auto adapters = ma::bench::makeAdapters();
 
     std::println("m-alloc benchmark suite ({} iterations per scenario)", iterations);
-    std::println("{:<42} {:>12} {:>12} {:>12} {:>12} {:>12}", "allocator", "alloc ns/op",
-                 "free ns/op", "1T Mops/s", "MT Mops/s", "peak RSS MB");
+    std::println("{:<42} {:>12} {:>12} {:>12} {:>12} {:>12}",
+                 "allocator",
+                 "alloc ns/op",
+                 "free ns/op",
+                 "1T Mops/s",
+                 "MT Mops/s",
+                 "peak RSS MB");
 
     for (const auto& adapter : adapters) {
         const auto result = runner.run(*adapter);
-        std::println("{:<42} {:>12.1f} {:>12.1f} {:>12.2f} {:>12.2f} {:>12.1f}", adapter->name(),
-                     result.allocateNanosPerOp, result.deallocateNanosPerOp,
-                     result.throughputMopsPerSec, result.multiThreadMopsPerSec,
+        std::println("{:<42} {:>12.1f} {:>12.1f} {:>12.2f} {:>12.2f} {:>12.1f}",
+                     adapter->name(),
+                     result.allocateNanosPerOp,
+                     result.deallocateNanosPerOp,
+                     result.throughputMopsPerSec,
+                     result.multiThreadMopsPerSec,
                      static_cast<double>(result.peakRssBytes) / (1024.0 * 1024.0));
     }
 

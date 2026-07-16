@@ -25,6 +25,7 @@ public:
 
     [[nodiscard]] void* allocateBlock(std::size_t classIndex, PoolAllocator& pools) noexcept;
     void freeBlock(std::size_t classIndex, void* block, PoolAllocator& pools) noexcept;
+
     [[nodiscard]] bool expired() const noexcept { return central_.expired(); }
 
 private:

@@ -47,8 +47,7 @@ private:
     void updatePeak(std::uint64_t current) noexcept {
         std::uint64_t peak = peakUsage_.load(std::memory_order_relaxed);
         while (current > peak &&
-               !peakUsage_.compare_exchange_weak(peak, current, std::memory_order_relaxed)) {
-        }
+               !peakUsage_.compare_exchange_weak(peak, current, std::memory_order_relaxed)) {}
     }
 
     std::atomic<std::uint64_t> allocationCount_{0};

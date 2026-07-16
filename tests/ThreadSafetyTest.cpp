@@ -1,12 +1,12 @@
 #include "MAlloc/MAlloc.hpp"
 
-#include <gtest/gtest.h>
-
 #include <atomic>
 #include <cstdint>
 #include <random>
 #include <thread>
 #include <vector>
+
+#include <gtest/gtest.h>
 
 namespace {
 

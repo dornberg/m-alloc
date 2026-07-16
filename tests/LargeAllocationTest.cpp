@@ -1,10 +1,10 @@
 #include "MAlloc/MAlloc.hpp"
 
-#include <gtest/gtest.h>
-
 #include <array>
 #include <cstdint>
 #include <cstring>
+
+#include <gtest/gtest.h>
 
 namespace {
 

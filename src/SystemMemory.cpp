@@ -22,7 +22,8 @@ std::span<std::byte> SystemMemory::map(std::size_t size) noexcept {
         return {};
     }
 #else
-    void* ptr = ::mmap(nullptr, rounded, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+    void* ptr =
+        ::mmap(nullptr, rounded, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
     if (ptr == MAP_FAILED) {
         return {};
     }

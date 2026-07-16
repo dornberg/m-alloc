@@ -65,8 +65,7 @@ public:
         try {
             live_.insert_or_assign(user, size);
             freed_.erase(user);
-        } catch (...) {
-        }
+        } catch (...) {}
     }
 
     [[nodiscard]] bool untrack(const void* user) noexcept {
@@ -76,8 +75,7 @@ public:
         }
         try {
             freed_.insert(user);
-        } catch (...) {
-        }
+        } catch (...) {}
         return true;
     }
 

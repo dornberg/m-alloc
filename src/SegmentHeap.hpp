@@ -45,7 +45,9 @@ private:
         }
 
         [[nodiscard]] bool isFree() const noexcept { return (sizeAndFlags & kFreeFlag) != 0; }
+
         [[nodiscard]] bool isFirst() const noexcept { return (sizeAndFlags & kFirstFlag) != 0; }
+
         [[nodiscard]] bool isLast() const noexcept { return (sizeAndFlags & kLastFlag) != 0; }
 
         void setFlag(std::uint64_t flag, bool value) noexcept {

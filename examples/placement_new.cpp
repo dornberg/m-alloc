@@ -9,6 +9,7 @@ public:
     Sensor(std::string name, double threshold) : name_(std::move(name)), threshold_(threshold) {}
 
     [[nodiscard]] const std::string& name() const noexcept { return name_; }
+
     [[nodiscard]] double threshold() const noexcept { return threshold_; }
 
 private:

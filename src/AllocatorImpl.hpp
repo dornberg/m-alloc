@@ -33,7 +33,9 @@ public:
 
     [[nodiscard]] std::size_t allocationSize(const void* ptr) const noexcept;
     [[nodiscard]] StatisticsSnapshot statistics() const noexcept;
+
     [[nodiscard]] const AllocatorConfig& config() const noexcept { return central_->config; }
+
     [[nodiscard]] std::size_t liveAllocationCount() const noexcept { return debug_.liveCount(); }
 
 private:

@@ -1,9 +1,9 @@
 #include "MAlloc/MAlloc.hpp"
 
-#include <gtest/gtest.h>
-
 #include <cstdint>
 #include <vector>
+
+#include <gtest/gtest.h>
 
 namespace {
 

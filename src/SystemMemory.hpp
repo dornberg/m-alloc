@@ -37,8 +37,11 @@ public:
     MappedRegion& operator=(const MappedRegion&) = delete;
 
     [[nodiscard]] std::span<std::byte> get() const noexcept { return region_; }
+
     [[nodiscard]] std::byte* data() const noexcept { return region_.data(); }
+
     [[nodiscard]] std::size_t size() const noexcept { return region_.size(); }
+
     [[nodiscard]] bool valid() const noexcept { return !region_.empty(); }
 
     [[nodiscard]] std::span<std::byte> release() noexcept {

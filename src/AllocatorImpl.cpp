@@ -317,11 +317,13 @@ void AllocatorImpl::report(Error error, const void* ptr) const noexcept {
     if (cfg.errorHandler) {
         try {
             cfg.errorHandler(error, ptr);
-        } catch (...) {
-        }
+        } catch (...) {}
     } else {
-        std::fprintf(stderr, "m-alloc: %.*s (%p)\n", static_cast<int>(toString(error).size()),
-                     toString(error).data(), ptr);
+        std::fprintf(stderr,
+                     "m-alloc: %.*s (%p)\n",
+                     static_cast<int>(toString(error).size()),
+                     toString(error).data(),
+                     ptr);
     }
     if (cfg.abortOnError) {
         std::abort();

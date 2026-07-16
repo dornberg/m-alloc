@@ -15,9 +15,8 @@ public:
     static constexpr std::size_t kClassCount = 30;
 
     static constexpr std::array<std::size_t, kClassCount> kClassSizes = {
-        8,    16,   24,   32,   48,   64,   80,   96,   112,  128,
-        160,  192,  224,  256,  320,  384,  448,  512,  640,  768,
-        896,  1024, 1280, 1536, 1792, 2048, 2560, 3072, 3584, 4096};
+        8,   16,  24,  32,  48,  64,  80,   96,   112,  128,  160,  192,  224,  256,  320,
+        384, 448, 512, 640, 768, 896, 1024, 1280, 1536, 1792, 2048, 2560, 3072, 3584, 4096};
 
     [[nodiscard]] static constexpr std::size_t classIndex(std::size_t size) noexcept {
         return kLookup[(size + kGranularity - 1) / kGranularity];

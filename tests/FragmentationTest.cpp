@@ -1,8 +1,8 @@
 #include "MAlloc/MAlloc.hpp"
 
-#include <gtest/gtest.h>
-
 #include <vector>
+
+#include <gtest/gtest.h>
 
 namespace {
 

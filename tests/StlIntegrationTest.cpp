@@ -1,12 +1,12 @@
 #include "MAlloc/MAlloc.hpp"
 
-#include <gtest/gtest.h>
-
 #include <deque>
 #include <map>
 #include <numeric>
 #include <string>
 #include <vector>
+
+#include <gtest/gtest.h>
 
 namespace {
 

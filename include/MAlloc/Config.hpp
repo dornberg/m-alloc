@@ -17,9 +17,7 @@ struct AllocatorConfig {
     bool abortOnError = false;
     ErrorHandler errorHandler{};
 
-    [[nodiscard]] static AllocatorConfig release() noexcept {
-        return AllocatorConfig{};
-    }
+    [[nodiscard]] static AllocatorConfig release() noexcept { return AllocatorConfig{}; }
 
     [[nodiscard]] static AllocatorConfig debug() noexcept {
         AllocatorConfig config{};
