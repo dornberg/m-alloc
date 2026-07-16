@@ -1,0 +1,24 @@
+PROJECT_NAME           = "m-alloc"
+PROJECT_NUMBER         = 0.1.0
+PROJECT_BRIEF          = "Modern high-performance cross-platform memory allocator"
+OUTPUT_DIRECTORY       = docs
+INPUT                  = include README.md docs/allocator.md docs/architecture.md docs/memory-layout.md docs/benchmarks.md docs/debugging.md
+USE_MDFILE_AS_MAINPAGE = README.md
+RECURSIVE              = YES
+EXTRACT_ALL            = YES
+GENERATE_HTML          = YES
+HTML_OUTPUT            = html
+GENERATE_LATEX         = NO
+GENERATE_TREEVIEW      = YES
+QUIET                  = YES
+WARN_IF_UNDOCUMENTED   = NO
+CPP_CLI_SUPPORT        = NO
+BUILTIN_STL_SUPPORT    = YES
+EXTENSION_MAPPING      = hpp=C++
+FILE_PATTERNS          = *.hpp *.md
+PREDEFINED             =
+SOURCE_BROWSER         = YES
+ALPHABETICAL_INDEX     = YES
+HAVE_DOT               = YES
+CLASS_GRAPH            = YES
+COLLABORATION_GRAPH    = YES

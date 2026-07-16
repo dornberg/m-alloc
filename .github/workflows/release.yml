@@ -1,0 +1,81 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: build-${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: linux-x64
+            os: ubuntu-latest
+          - name: macos-arm64
+            os: macos-latest
+          - name: windows-x64
+            os: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure (Unix)
+        if: runner.os != 'Windows'
+        run: cmake --preset release -DMALLOC_BUILD_TESTS=OFF -DMALLOC_BUILD_BENCHMARKS=OFF -DMALLOC_BUILD_EXAMPLES=OFF
+
+      - name: Configure (Windows)
+        if: runner.os == 'Windows'
+        run: cmake --preset msvc -DMALLOC_BUILD_TESTS=OFF -DMALLOC_BUILD_BENCHMARKS=OFF -DMALLOC_BUILD_EXAMPLES=OFF
+
+      - name: Build (Unix)
+        if: runner.os != 'Windows'
+        run: cmake --build --preset release --parallel
+
+      - name: Build (Windows)
+        if: runner.os == 'Windows'
+        run: cmake --build --preset msvc-release --parallel
+
+      - name: Package (Unix)
+        if: runner.os != 'Windows'
+        run: |
+          cmake --install build/release --prefix stage
+          tar -czf m-alloc-${{ github.ref_name }}-${{ matrix.name }}.tar.gz -C stage .
+
+      - name: Package (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          cmake --install build/msvc --prefix stage --config Release
+          Compress-Archive -Path stage/* -DestinationPath "m-alloc-${{ github.ref_name }}-${{ matrix.name }}.zip"
+
+      - name: Upload package
+        uses: actions/upload-artifact@v4
+        with:
+          name: package-${{ matrix.name }}
+          path: m-alloc-*
+
+  release:
+    name: publish
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download packages
+        uses: actions/download-artifact@v4
+        with:
+          pattern: package-*
+          merge-multiple: true
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: m-alloc-*
+          generate_release_notes: true
+          draft: false

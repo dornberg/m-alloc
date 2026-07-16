@@ -1,0 +1,94 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: ubuntu-gcc
+            os: ubuntu-latest
+            cc: gcc-14
+            cxx: g++-14
+          - name: ubuntu-clang
+            os: ubuntu-latest
+            cc: clang-18
+            cxx: clang++-18
+          - name: macos-clang
+            os: macos-latest
+            cc: clang
+            cxx: clang++
+          - name: windows-msvc
+            os: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install clang (Ubuntu)
+        if: matrix.name == 'ubuntu-clang'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang-18
+
+      - name: Configure (Unix)
+        if: runner.os != 'Windows'
+        env:
+          CC: ${{ matrix.cc }}
+          CXX: ${{ matrix.cxx }}
+        run: cmake --preset release
+
+      - name: Configure (Windows)
+        if: runner.os == 'Windows'
+        run: cmake --preset msvc
+
+      - name: Build (Unix)
+        if: runner.os != 'Windows'
+        run: cmake --build --preset release --parallel
+
+      - name: Build (Windows)
+        if: runner.os == 'Windows'
+        run: cmake --build --preset msvc-release --parallel
+
+      - name: Test (Unix)
+        if: runner.os != 'Windows'
+        run: ctest --preset release
+
+      - name: Test (Windows)
+        if: runner.os == 'Windows'
+        run: ctest --preset msvc-release
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: malloc-${{ matrix.name }}
+          path: |
+            build/release/libmalloc.*
+            build/msvc/Release/malloc.lib
+            include/
+          if-no-files-found: ignore
+
+  sanitizers:
+    name: ubuntu-asan-ubsan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure
+        run: cmake --preset asan
+
+      - name: Build
+        run: cmake --build --preset asan --parallel
+
+      - name: Test
+        run: ctest --preset asan
