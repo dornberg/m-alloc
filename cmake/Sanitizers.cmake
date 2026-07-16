@@ -1,0 +1,8 @@
+function(malloc_enable_sanitizers target)
+    if(MSVC)
+        target_compile_options(${target} PRIVATE /fsanitize=address)
+    else()
+        target_compile_options(${target} PRIVATE -fsanitize=address,undefined -fno-omit-frame-pointer)
+        target_link_options(${target} PRIVATE -fsanitize=address,undefined)
+    endif()
+endfunction()
