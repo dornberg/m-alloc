@@ -33,7 +33,7 @@ jobs:
             os: windows-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Install clang (Ubuntu)
         if: matrix.name == 'ubuntu-clang'
@@ -82,7 +82,7 @@ jobs:
     name: ubuntu-asan-ubsan
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Configure
         run: cmake --preset asan
